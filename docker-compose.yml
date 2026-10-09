@@ -1,0 +1,17 @@
+services:
+  touch-grass-quest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      TRANSFORMERS_CACHE: /app/models
+    volumes:
+      - clip-model-cache:/app/models
+    restart: unless-stopped
+
+volumes:
+  clip-model-cache:

@@ -1,0 +1,34 @@
+{
+  "name": "touch-grass-quest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "build": "bun build ./src/index.html --outdir=dist --sourcemap --target=browser --minify --define:process.env.NODE_ENV='\"production\"' --env='BUN_PUBLIC_*'",
+    "start": "NODE_ENV=production bun src/index.ts",
+    "podman:build": "podman compose build",
+    "podman:up": "podman compose up",
+    "podman:up:build": "podman compose up --build",
+    "podman:down": "podman compose down",
+    "podman:logs": "podman compose logs -f"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.1",
+    "dayjs": "^1.11.23",
+    "i18next": "^26.4.2",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-i18next": "^17.0.16",
+    "sharp": "^0.35.5",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  }
+}
