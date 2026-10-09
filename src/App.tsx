@@ -85,6 +85,7 @@ export function App() {
     proof: translate("proof"),
     add: translate("add"),
     check: translate("check"),
+    checking: translate("checking"),
     complete: translate("complete"),
     done: translate("done"),
     outside: translate("outside"),
@@ -99,6 +100,7 @@ export function App() {
   const [photo, setPhoto] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
+  const [checking, setChecking] = useState(false);
   const [messageType, setMessageType] = useState<"success" | "error">(
     "success",
   );
@@ -124,6 +126,7 @@ export function App() {
   };
   const check = async () => {
     if (!file || completed.includes(quest.title)) return;
+    setChecking(true);
     try {
       const image = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -166,6 +169,8 @@ export function App() {
       setFile(null);
       setMessageType("error");
       setMessage(error instanceof Error ? error.message : t.tryAgain);
+    } finally {
+      setChecking(false);
     }
   };
   const lang = (
@@ -306,10 +311,10 @@ export function App() {
           </label>
           <button
             className="primary full"
-            disabled={!photo || completed.includes(quest.title)}
+          disabled={!photo || completed.includes(quest.title) || checking}
             onClick={check}
           >
-            {completed.includes(quest.title) ? t.complete : t.check}
+          {checking ? t.checking : completed.includes(quest.title) ? t.complete : t.check}
           </button>
           {message && <p className={`message ${messageType}`}>{message}</p>}
         </div>

@@ -35,6 +35,7 @@ function isAllowedBrowserRequest(req: Request) {
 }
 
 const server = serve({
+  port: Number(process.env.PORT || 3000),
   routes: {
     "/*": index,
     "/api/analyze": {
